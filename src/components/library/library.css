@@ -19,12 +19,20 @@
 }
 
 .library-scroll-grid {
-    display: flex;
-    justify-content: flex-start;
-    align-content: flex-start;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, 160px);
     background: $ui-pane-gray;
-    flex-grow: 1;
-    flex-wrap: wrap;
+    overflow-y: auto;
+    height: calc(100% - $library-header-height);
+    padding: 0.5rem;
+}
+
+.feature-scroll-grid {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, 300px);
+    background: $ui-pane-gray;
     overflow-y: auto;
     height: calc(100% - $library-header-height);
     padding: 0.5rem;

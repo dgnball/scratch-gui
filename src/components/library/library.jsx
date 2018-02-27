@@ -60,7 +60,7 @@ class LibraryComponent extends React.Component {
                 onFilterClear={this.handleFilterClear}
                 onRequestClose={this.props.onRequestClose}
             >
-                <div className={styles.libraryScrollGrid}>
+                <div className={this.props.featureStyle ? styles.featureScrollGrid : styles.libraryScrollGrid}>
                     {this.getFilteredData().map((dataItem, index) => {
                         const scratchURL = dataItem.md5 ?
                             `https://cdn.assets.scratch.mit.edu/internalapi/asset/${dataItem.md5}/get/` :
@@ -100,11 +100,16 @@ LibraryComponent.propTypes = {
         })
         /* eslint-enable react/no-unused-prop-types, lines-around-comment */
     ),
+    featureStyle: PropTypes.bool,
     onItemMouseEnter: PropTypes.func,
     onItemMouseLeave: PropTypes.func,
     onItemSelected: PropTypes.func,
     onRequestClose: PropTypes.func,
     title: PropTypes.string.isRequired
+};
+
+LibraryComponent.defaultProps = {
+    featureStyle: false
 };
 
 export default LibraryComponent;
