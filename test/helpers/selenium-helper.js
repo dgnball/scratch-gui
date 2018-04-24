@@ -6,6 +6,8 @@ import webdriver from 'selenium-webdriver';
 
 const {By, until, Button} = webdriver;
 
+const USE_HEADLESS = process.env.USE_HEADLESS !== 'no';
+
 class SeleniumHelper {
     constructor () {
         bindAll(this, [
@@ -25,6 +27,7 @@ class SeleniumHelper {
         // List of useful xpath scopes for finding elements
         return {
             blocksTab: "*[@id='react-tabs-1']",
+            costumesTab: "*[@id='react-tabs-3']",
             modal: '*[@class="ReactModalPortal"]',
             reportedValue: '*[@class="blocklyDropDownContent"]',
             soundsTab: "*[@id='react-tabs-5']",
@@ -33,8 +36,15 @@ class SeleniumHelper {
     }
 
     getDriver () {
+        const chromeCapabilities = webdriver.Capabilities.chrome();
+        const args = [];
+        if (USE_HEADLESS) {
+            args.push('--headless');
+        }
+        chromeCapabilities.set('chromeOptions', {args});
         this.driver = new webdriver.Builder()
             .forBrowser('chrome')
+            .withCapabilities(chromeCapabilities)
             .build();
         return this.driver;
     }
@@ -94,12 +104,8 @@ class SeleniumHelper {
                 const message = entry.message;
                 for (let i = 0; i < whitelist.length; i++) {
                     if (message.indexOf(whitelist[i]) !== -1) {
-                        // eslint-disable-next-line no-console
-                        console.warn(`Ignoring whitelisted error: ${whitelist[i]}`);
                         return false;
                     } else if (entry.level !== 'SEVERE') {
-                        // eslint-disable-next-line no-console
-                        console.warn(`Ignoring non-SEVERE entry: ${message}`);
                         return false;
                     }
                 }
