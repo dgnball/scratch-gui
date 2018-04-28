@@ -5,7 +5,7 @@
     display: grid;
     justify-content: center;
     grid-template-columns: repeat(auto-fit, 160px);
-    background: $ui-pane-gray;
+    background: $ui-secondary;
     overflow-y: auto;
     height: calc(100% - $library-header-height);
     padding: 0.5rem;
@@ -15,7 +15,7 @@
     display: grid;
     justify-content: center;
     grid-template-columns: repeat(auto-fit, 300px);
-    background: $ui-pane-gray;
+    background: $ui-secondary;
     overflow-y: auto;
     height: calc(100% - $library-header-height);
     padding: 0.5rem;
